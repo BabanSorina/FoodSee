@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Feed, NavBar, RecipeDetail } from './components'
+import { Box } from '@mui/material'
 function App() {
+
+  const font = "'Source Sans Pro', sans-serif";
+  const theme = createTheme({
+    typography: {
+      fontFamily: font
+    },
+    palette: {
+      primary: {
+        main: "#EF959D"
+      }
+    }
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Box >
+          <NavBar />
+          <Routes>
+            <Route exact path='/' element={<Feed />} />
+            <Route path='/recipe/:id' element={<RecipeDetail />} />
+          </Routes>
+        </Box>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
